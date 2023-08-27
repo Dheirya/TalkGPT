@@ -88,8 +88,8 @@ function autoplay() {
     }
 }
 window.parent.document.querySelector("#voice").addEventListener("change", () => {
+    window.parent.document.querySelector('#voice [value="default"]').remove();
     utterance.voice = speechSynthesis.getVoices().filter(function (voice) {
-        window.parent.document.querySelector('#voice [value="default"]').remove();
         return voice.name == window.parent.document.querySelector("#voice").value;
     })[0];
 });
