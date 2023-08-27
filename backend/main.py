@@ -31,6 +31,7 @@ class APIClient:
 async def read_root(request: Request):
     data = await request.json()
     question = (data.get("question", "")[:512] + '...') if len(data.get("question", "")) > 512 else data.get("question", "")
+    question = f"You will respond to the following with a {data.get('personality', '')} personality/mannerism: {question}"    
     json_data = data.get("context", [{"role": "system", "content": "You are a talking voice assistant called TalkGPT built as a cool voice assistant. Please try to talk in less than 50 words, while still responding to the users entire prompt and fully adhering and listening to it."}])
     try:
         api_client = APIClient()
