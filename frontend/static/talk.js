@@ -29,7 +29,7 @@ speechRecognition.onend = () => {
             document.getElementById("speak-icon").innerHTML = "pending";
             document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + "<b>TalkGPT:</b> <span id='spoken'>Thinking...</span><br/><br/>";
             scrollToBottom();
-            fetch("http://127.0.0.1:8000/ask/", {
+            fetch("https://talkgpt-1-r6338284.deta.app/ask/", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({question: final_transcript, context: currentContext, personality: personalize})
