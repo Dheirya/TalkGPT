@@ -87,3 +87,17 @@ function autoplay() {
         document.getElementById("speak").remove();
     }
 }
+window.parent.document.querySelector("#voice").addEventListener("change", () => {
+    utterance.voice = speechSynthesis.getVoices().filter(function (voice) {
+        window.parent.document.querySelector('[value="default"]').remove();
+        return voice.name == window.parent.document.querySelector("#voice").value;
+    })[0];
+});
+window.parent.document.querySelector("#speed").addEventListener("change", () => {
+    utterance.rate = window.parent.document.querySelector("#speed").value;
+    window.parent.document.querySelector("#numSpeed").innerHTML = window.parent.document.querySelector("#speed").value;
+});
+window.parent.document.querySelector("#pitch").addEventListener("change", () => {
+    utterance.pitch = window.parent.document.querySelector("#pitch").value;
+    window.parent.document.querySelector("#numPitch").innerHTML = window.parent.document.querySelector("#pitch").value;
+});
