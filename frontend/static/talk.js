@@ -6,6 +6,7 @@ let blink = true;
 let isListening = false;
 let final_transcript = '';
 let lastTranscriptUpdateTime = Date.now();
+let personalize = "default";
 speechRecognition.lang = 'en-US';
 speechRecognition.continuous = true;
 speechRecognition.interimResults = true;
@@ -28,10 +29,10 @@ speechRecognition.onend = () => {
             document.getElementById("speak-icon").innerHTML = "pending";
             document.getElementById("output").innerHTML = document.getElementById("output").innerHTML + "<b>TalkGPT:</b> <span id='spoken'>Thinking...</span><br/><br/>";
             scrollToBottom();
-            fetch("https://talkgpt-1-r6338284.deta.app/ask/", {
+            fetch("http://127.0.0.1:8000/ask/", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({question: final_transcript, context: currentContext})
+                body: JSON.stringify({question: final_transcript, context: currentContext, personality: personalize})
             }).then((response) => {
                 return response.json()
             }).then((data) => {
@@ -71,6 +72,13 @@ speechRecognition.onresult = (event) => {
 };
 function enableMic() {
     navigator.mediaDevices.getUserMedia({video: false, audio: true}).then((stream) => {
+        const voices = speechSynthesis.getVoices();
+        voices.forEach(voice => {
+            const option = document.createElement("option");
+            option.value = voice.name;
+            option.textContent = voice.name;
+            window.parent.document.querySelector("#voice").appendChild(option);
+        });
         window.parent.postMessage('Start Read', '*');
         globalStream = stream;
         speechRecognition.stop();
@@ -110,6 +118,9 @@ function blinkRed() {
         setTimeout(blinkRed, 1000);
     }
 }
+window.parent.document.querySelector("#personality").addEventListener("change", () => {
+    personalize = window.parent.document.querySelector("#personality").value;
+});
 setInterval(function() {
     if (isListening) {
         const timeSinceLastUpdate = Date.now() - lastTranscriptUpdateTime;
