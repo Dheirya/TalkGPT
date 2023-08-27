@@ -89,7 +89,7 @@ function autoplay() {
 }
 window.parent.document.querySelector("#voice").addEventListener("change", () => {
     utterance.voice = speechSynthesis.getVoices().filter(function (voice) {
-        window.parent.document.querySelector('[value="default"]').remove();
+        window.parent.document.querySelector('#voice [value="default"]').remove();
         return voice.name == window.parent.document.querySelector("#voice").value;
     })[0];
 });
