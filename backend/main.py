@@ -6,7 +6,7 @@ import openai
 import httpx
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=["https://talkgpt.web.app"], allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
+app.add_middleware(CORSMiddleware, allow_origins=["https://talkgpt.web.app", "https://talkgpt-talking-genie-personal-talker--dheiryat.repl.co", "https://5512407b-fe22-49d9-b60d-8e3ffb1c3fb0.id.repl.co"], allow_methods=["GET", "POST", "OPTIONS"], allow_headers=["*"])
 app.add_middleware(TrustedHostMiddleware, allowed_hosts=["talkgpt-1-r6338284.deta.app"])
 openai.api_key = # YOUR API KEY
 openai.api_base = # YOUR API BASE
