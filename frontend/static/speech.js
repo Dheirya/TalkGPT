@@ -88,10 +88,10 @@ function autoplay() {
     }
 }
 window.parent.document.querySelector("#voice").addEventListener("change", () => {
-    window.parent.document.querySelector('#voice [value="default"]').remove();
     utterance.voice = speechSynthesis.getVoices().filter(function (voice) {
         return voice.name == window.parent.document.querySelector("#voice").value;
     })[0];
+    if (window.parent.document.querySelector('#voice [value="default"]')) window.parent.document.querySelector('#voice [value="default"]').remove();
 });
 window.parent.document.querySelector("#speed").addEventListener("change", () => {
     utterance.rate = window.parent.document.querySelector("#speed").value;
